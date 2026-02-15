@@ -5,7 +5,15 @@ const server = serve({
   routes: {
     // Serve index.html for all unmatched routes.
     "/*": index,
+    "/api/data": async req => {
+      // Simulate some data fetching delay
+      await new Promise(resolve => setTimeout(resolve, 5000));
 
+      return Response.json({
+        message: "Hello from the API!",
+        timestamp: new Date().toISOString(),
+      });
+    },
     "/api/hello": {
       async GET(req) {
         return Response.json({
